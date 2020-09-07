@@ -12,19 +12,31 @@ code {
 		monospace;
 }
 
+body {
+	background-color: #2c4975;
+	color: #fff;
+}
+
+.card {
+	background-color: #2c4975;
+	margin-bottom: 0.3em;
+}
+
 .col-sm-12 {
-	background-color: blue;
-	border: 1px red solid;
 	font-size: 2em;
-	/* height: 80px; */
-	/* padding: 2em; */
+}
+.col-md-12 {
+	border-radius: 5px;
+	/* margin: 1em 10px; */
 }
 
 .map {
 	background-color: green;
 	height: 280px;
+	margin-top: 0.4em;
 }
 
 .list-item {
 	height: 50px;
+	border: 1px white solid;
 }

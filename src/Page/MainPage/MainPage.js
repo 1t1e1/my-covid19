@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
 import CountUpCard from "../../Component/CountUpCard";
+import WorldMap from "../../Component/WorldMap";
 
 export default function MyComponent(prop) {
 	return (
@@ -20,7 +21,7 @@ export default function MyComponent(prop) {
 					<CountUpCard start={0} end={14821} header="death"></CountUpCard>
 				</Col>
 				<Col sm="12" md="12" lg="12" className="map">
-					<p> MAP</p>
+					<WorldMap></WorldMap>
 				</Col>
 			</Row>
 			<Row>

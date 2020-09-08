@@ -58,12 +58,15 @@ export default function CountUpCards() {
 					<CountUpCard
 						start={0}
 						end={
-							state.deaths.value / (state.recovered.value + state.deaths.value)
+							(100 * state.deaths.value) /
+							(state.recovered.value + state.deaths.value)
 						}
 						// decimal=3
 						// olarak ayarla
 						// separate ayarla.
 						header="Death Rate"
+						decimals={2}
+						prefix="%"
 					></CountUpCard>
 				</Col>
 			</>

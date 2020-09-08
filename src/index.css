@@ -31,12 +31,16 @@ body {
 }
 
 .map {
-	background-color: green;
+	/* background-color: green; */
 	/* height: 280px; */
-	margin-top: 0.4em;
+	/* margin-top: 0.4em; */
 }
 
 .list-item {
 	height: 50px;
 	border: 1px white solid;
+}
+
+#AFF {
+	fill: #da4567;
 }

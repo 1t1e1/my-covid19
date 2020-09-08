@@ -1,6 +1,6 @@
 import CountUp from "react-countup";
 import React from "react";
-import { Card, CardHeader, CardText, CardTitle } from "reactstrap";
+import { Card, CardText, CardTitle } from "reactstrap";
 
 export default function CountUpCard({ start, end, header }) {
 	return (

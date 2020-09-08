@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
-import CountUpCard from "../../Component/CountUpCard";
-import WorldMap from "../../Component/WorldMap";
+import CountUpCard from "../../Component/CountUpCard/CountUpCard";
+import WorldMap from "../../Component/WorldMap/WorldMapSVG";
 
 export default function MyComponent(prop) {
 	return (
@@ -20,7 +20,7 @@ export default function MyComponent(prop) {
 				<Col sm="12" md="6" lg="3">
 					<CountUpCard start={0} end={14821} header="death"></CountUpCard>
 				</Col>
-				<Col sm="12" md="12" lg="12" className="map">
+				<Col sm="12" md="12" lg="12" className="map py-3">
 					<WorldMap></WorldMap>
 				</Col>
 			</Row>

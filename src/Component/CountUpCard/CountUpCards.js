@@ -6,6 +6,7 @@ import Axios from "axios";
 export default function CountUpCards() {
 	const [state, setState] = useState();
 	const [isLoading, setLoading] = useState(true);
+
 	useEffect(() => {
 		Axios.get("https://covid19.mathdro.id/api/")
 			.then(function (response) {
@@ -25,7 +26,7 @@ export default function CountUpCards() {
 	}, []);
 
 	useEffect(() => {
-		console.log(state);
+		// console.log(state);
 	}, [state]);
 
 	if (isLoading) {

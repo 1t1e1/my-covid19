@@ -6,13 +6,9 @@ import "./App.css";
 
 function App() {
 	return (
-		<div>
-			<Container>
-				<MainPage>
-					<MyComponent></MyComponent>
-				</MainPage>
-			</Container>
-		</div>
+		<Container>
+			<MainPage>{/* <MyComponent></MyComponent> */}</MainPage>
+		</Container>
 	);
 }
 

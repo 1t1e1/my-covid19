@@ -3,17 +3,15 @@ import { Table } from "reactstrap";
 
 import thousands_separators from "../../utils/numberformatter";
 
-import "../../App.css";
-
 const CustomTable = ({ isLoading, data }) => {
 	return (
-		<Table dark className="mybackground">
+		<Table dark hover responsive>
 			<thead>
 				<tr>
 					<th>#</th>
-					<th>Countries</th>
-					<th>Confirmed</th>
-					<th>Deaths</th>
+					<th>COUNTRIES</th>
+					<th>CONFIRMED</th>
+					<th>DEATHS</th>
 					<th>RECOVERED</th>
 				</tr>
 			</thead>
@@ -26,6 +24,8 @@ const CustomTable = ({ isLoading, data }) => {
 								<th scope="row">{index + 1}</th>
 								<td> {item.country}</td>
 								<td> {thousands_separators(item.confirmedCount, ".")} </td>
+								<td> {thousands_separators(item.deathsCount, ".")} </td>
+								<td> {thousands_separators(item.recoveredCount, ".")} </td>
 							</tr>
 						);
 					})}

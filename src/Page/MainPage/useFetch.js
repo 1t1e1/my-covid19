@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import Axios from "axios";
 import { countriesHashmap, countries, arraySorter } from "../../utils";
 
@@ -36,38 +36,69 @@ const initialState = {
 	data: "",
 };
 
+function tekrarHashing(confirmed) {
+	// Parse countries confirmed cases data
+	let countriesCount = countries.map((item) => {
+		return { ...item };
+	});
+
+	for (let result of confirmed) {
+		if (countriesHashmap.hasOwnProperty(result.countryRegion)) {
+			const refCountryCount =
+				countriesCount[countriesHashmap[result.countryRegion]];
+			refCountryCount.confirmedCount += result.confirmed;
+			refCountryCount.recoveredCount += result.recovered;
+			refCountryCount.deathsCount += result.deaths;
+		} else {
+			countriesCount.push({
+				country: result.countryRegion,
+				confirmedCount: result.confirmed,
+				recoveredCount: result.recovered,
+				deathsCount: result.deaths,
+			});
+		}
+	}
+	return countriesCount;
+}
+
 export default function useFetch(url) {
 	const [state, dispatch] = useReducer(reducerFunction, initialState);
-	// const [state, setState] = useState();
 
 	useEffect(() => {
 		const fetchData = async () => {
 			dispatch({ type: "FECTHING_INIT" });
-			const response = await Axios.get(url);
-			const confirmed = response.data;
+			// there are 2 requests because of issue #1 in README.md
+			const resConfirmed = await Axios.get(
+				`https://covid19.mathdro.id/api/confirmed`
+			);
+			const resRecovered = await Axios.get(
+				"https://covid19.mathdro.id/api/recovered"
+			);
 
-			// Parse countries confirmed cases data
-			let countriesCount = countries.map((item) => {
-				return { ...item };
+			const confirmed = resConfirmed.data;
+			const recovered = resRecovered.data;
+
+			const countriesCount1 = tekrarHashing(confirmed);
+			const countriesCount2 = tekrarHashing(recovered);
+
+			// sentezle
+			const countriesCount = countriesCount1.map((country, index) => {
+				const recoveredData = countriesCount2[index];
+
+				return {
+					country: country.country,
+					confirmedCount:
+						country.confirmedCount || recoveredData.confirmedCount,
+					deathsCount: country.deathsCount || recoveredData.deathsCount,
+					recoveredCount:
+						country.recoveredCount || recoveredData.recoveredCount,
+				};
 			});
-
-			for (let result of confirmed) {
-				if (countriesHashmap.hasOwnProperty(result.countryRegion)) {
-					countriesCount[
-						countriesHashmap[result.countryRegion]
-					].confirmedCount += result.confirmed;
-				} else {
-					countriesCount.push({
-						country: result.countryRegion,
-						confirmedCount: result.confirmed,
-					});
-				}
-			}
 
 			// Sort country data by highest confirmed cases
 			countriesCount.sort(arraySorter("confirmedCount", "desc"));
 			dispatch({ type: "FECTHING_SUCCESS", payload: countriesCount });
-			// setState(countriesCount);
+			// TODO make method for desc asc for all keys.
 		};
 		fetchData();
 	}, [url]);

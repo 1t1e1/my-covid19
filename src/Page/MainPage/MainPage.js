@@ -6,6 +6,7 @@ import CustomTable from "../../Component/Table/CustomTable";
 import useFetch from "./useFetch";
 
 export default function MyComponent(prop) {
+	// FIXME is url not neccesary?
 	const url = `https://covid19.mathdro.id/api/confirmed`;
 	const confirmState = useFetch(url);
 
@@ -15,7 +16,7 @@ export default function MyComponent(prop) {
 			<Row className="text-center ">
 				<CountUpCards></CountUpCards>
 				<Col sm="12" md="12" lg="12" className="map py-3">
-					<WorldMap></WorldMap>
+					{/* <WorldMap></WorldMap> */}
 				</Col>
 			</Row>
 			<Row>

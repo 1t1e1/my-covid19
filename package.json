@@ -1,6 +1,6 @@
 {
 	"homepage": "https://1t1e1.github.io/my-covid19",
-	"name": "corona-st",
+	"name": "my-covid19",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {

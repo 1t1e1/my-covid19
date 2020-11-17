@@ -4,21 +4,13 @@
 - [ ] Add world map
 - [ ] Add style
 - [ ] make method for desc & asc for all keyword.
-- [ ] mainpage comp un icindeki usefetch daha genel yazmak lazim.
-- [ ] Table custom style
 - [ ] isloading hoc [blog](https://blog.bitsrc.io/building-a-universal-higher-order-component-page-loader-for-your-react-app-46d74f7a6958)
 - [ ] error boundary component
-
-## Completed
-
-- [x] Script yerine `api/countries` kullanilmasi daha ii olabilir.
-- [x] Sifir probleminin documentasyonunu yaz.
-- [x] US, Mexico etc recovered count 0. why?
 
 ### Maybes;
 
 - [ ] Auto Country Location
-- [ ] Count self page.
+- [ ] Country self page.
 
 # ISSUES
 

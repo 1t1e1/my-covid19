@@ -3,9 +3,12 @@ import { Table } from "reactstrap";
 
 import thousands_separators from "../../utils/numberformatter";
 
-const CustomTable = ({ isLoading, data }) => {
+const CustomTable = ({ isLoading, isError, data }) => {
 	if (isLoading) {
 		return <div>loading table</div>;
+	}
+	if (isError) {
+		return <div> There is error in Store or API </div>;
 	}
 	const dataEdited =
 		data &&

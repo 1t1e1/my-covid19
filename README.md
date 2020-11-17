@@ -1,5 +1,8 @@
 ## Todos
 
+- [ ] Write tests
+- [ ] Add world map
+- [ ] Add style
 - [ ] make method for desc & asc for all keyword.
 - [ ] mainpage comp un icindeki usefetch daha genel yazmak lazim.
 - [ ] Table custom style

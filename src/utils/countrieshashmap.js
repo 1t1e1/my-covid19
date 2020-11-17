@@ -1,5 +1,9 @@
-// this file created by hashmapCreator.js
+export const countriesHashmapReducer = (acc, cv, index) => {
+	acc[cv.name] = index;
+	return acc;
+};
 
+// this file created by hashmapCreator.js
 export const countriesHashmap = {
 	Afghanistan: 0,
 	Albania: 1,

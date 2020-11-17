@@ -1,6 +1,11 @@
 import { useEffect, useReducer } from "react";
 import Axios from "axios";
-import { countriesHashmap, countries, arraySorter } from "../../utils";
+import {
+	countriesHashmap,
+	countries,
+	arraySorter,
+	countriesHashmapReducer,
+} from "../../utils";
 
 const reducerFunction = (state, action) => {
 	switch (action.type) {
@@ -36,6 +41,47 @@ const initialState = {
 	data: "",
 };
 
+const myHashing = (confirmed, countriesObject) => {
+	const resultArr = new Array(Object.keys(countriesObject).length)
+		.fill(null)
+		.map((u, i) => {
+			return {
+				country: "",
+				confirmedCount: 0,
+				deathsCount: 0,
+				recoveredCount: 0,
+			};
+		});
+
+	confirmed.forEach((info) => {
+		let obj = resultArr[countriesObject[info.countryRegion]];
+		// if (info.countryRegion == "US")
+		// 	console.log(
+		// 		"myHashing -> info",
+		// 		obj[confirmedCount],
+		// 		"  ",
+		// 		info[confirmed]
+		// 	);
+		// if (info.countryRegion == "US") console.log(obj);
+		// console.log(countriesObject[info.countryRegion]);
+
+		//
+		["confirmed", "recovered", "deaths"].forEach((el) => {
+			// obj[el + "Count"]
+			info[el] && (obj[el + "Count"] += info[el]);
+			// : (obj[el + "Count"] = 0);
+		});
+		// ulke bilgilerini tamamla.
+		if (!obj.country) {
+			obj.country = info.countryRegion;
+			obj.iso3 = info.iso3;
+			obj.iso2 = info.iso2;
+		}
+	});
+
+	return resultArr;
+};
+
 function tekrarHashing(confirmed) {
 	// Parse countries confirmed cases data
 	let countriesCount = countries.map((item) => {
@@ -67,6 +113,15 @@ export default function useFetch(url) {
 	useEffect(() => {
 		const fetchData = async () => {
 			dispatch({ type: "FECTHING_INIT" });
+
+			const countriesReq = await Axios.get(
+				`https://covid19.mathdro.id/api/countries/`
+			);
+			const countriesObject = countriesReq.data.countries.reduce(
+				countriesHashmapReducer,
+				{}
+			);
+
 			// there are 2 requests because of issue #1 in README.md
 			const resConfirmed = await Axios.get(
 				`https://covid19.mathdro.id/api/confirmed`
@@ -78,20 +133,43 @@ export default function useFetch(url) {
 			const confirmed = resConfirmed.data;
 			const recovered = resRecovered.data;
 
-			const countriesCount1 = tekrarHashing(confirmed);
-			const countriesCount2 = tekrarHashing(recovered);
+			// const countriesCount1 = tekrarHashing(confirmed);
+			// const countriesCount2 = tekrarHashing(recovered);
+			const countriesCount1 = myHashing(confirmed, countriesObject);
+			const countriesCount2 = myHashing(recovered, countriesObject);
+			// console.log("useFetch -> eski hashing", countriesCount11);
+			// console.log("useFetch -> confirmed result data", countriesCount1);
+			//
+
+			// countriesCount11.forEach((el, index) => {
+			// 	console.log(el.deathsCount - countriesCount1.deathsCount);
+			// });
 
 			// sentezle
 			const countriesCount = countriesCount1.map((country, index) => {
-				const recoveredData = countriesCount2[index];
+				// console.log("useFetch -> country", country);
+				const secondData = countriesCount2[index];
+
+				// if (country.country == "Belgium")
+				// 	console.log("useFetch -> secondData", { ...country }, "second", {
+				// 		...secondData,
+				// 	});
 
 				return {
-					country: country.country,
-					confirmedCount:
-						country.confirmedCount || recoveredData.confirmedCount,
-					deathsCount: country.deathsCount || recoveredData.deathsCount,
-					recoveredCount:
-						country.recoveredCount || recoveredData.recoveredCount,
+					...country,
+					confirmedCount: Math.max(
+						country.confirmedCount,
+						secondData.confirmedCount
+					),
+					confirmedCount: Math.max(
+						country.confirmedCount,
+						secondData.confirmedCount
+					),
+					deathsCount: Math.max(secondData.deathsCount, country.deathsCount),
+					recoveredCount: Math.max(
+						country.recoveredCount,
+						secondData.recoveredCount
+					),
 				};
 			});
 

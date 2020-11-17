@@ -8,6 +8,7 @@
 
 ## Completed
 
+- [x] Script yerine `api/countries` kullanilmasi daha ii olabilir.
 - [x] Sifir probleminin documentasyonunu yaz.
 - [x] US, Mexico etc recovered count 0. why?
 

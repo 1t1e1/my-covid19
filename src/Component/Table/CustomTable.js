@@ -8,8 +8,13 @@ const CustomTable = ({ isLoading, data }) => {
 		return <div>loading table</div>;
 	}
 	const dataEdited =
-		data && data.filter((country) => country.confirmedCount > 100);
-	console.log("CustomTable -> dataEdited", dataEdited);
+		data &&
+		data.filter(
+			(country) =>
+				country.confirmedCount + country.deathsCount + country.recoveredCount >
+				150
+		);
+
 	return (
 		<Table dark hover responsive>
 			<thead>

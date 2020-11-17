@@ -1,8 +1,8 @@
 ## Todos
 
+- [ ] make method for desc & asc for all keyword.
 - [ ] mainpage comp un icindeki usefetch daha genel yazmak lazim.
 - [ ] Table custom style
-- [ ] World statistic.
 - [ ] isloading hoc [blog](https://blog.bitsrc.io/building-a-universal-higher-order-component-page-loader-for-your-react-app-46d74f7a6958)
 - [ ] error boundary component
 
@@ -35,3 +35,11 @@
 | "deaths": 0, #:x:                | "deaths": #:heavy_check_mark:    |
 
 **SOL :** 1 endpoint yerine 2 endpointe istek atip, sonuclari birlestirerek datanin %100 u elde edilebilir.
+
+## #2 THERE IS NO DATA
+
+**PROB :** Bazi ulkelerin datalari api da sifir 0.
+
+**OBS 1:** Belgium `api/countries/be` veya Serbia `api/countries/rs` bakilinca recovered datasinin 0 oldugu goruluyor.
+
+**SOL :** Frontendle ilgili degil.
